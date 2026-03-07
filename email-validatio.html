@@ -1,48 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <title>Simple Form Validation</title>
 </head>
+
 <body>
 
 <h2>Registration Form</h2>
 
 <form id="myForm">
-  Name: <br>
-  <input type="text" id="name"><br><br>
 
-  Email: <br>
-  <input type="text" id="email"><br><br>
+Name:<br>
+<input type="text" id="name"><br><br>
 
-  Password: <br>
-  <input type="password" id="pass"><br><br>
+Email:<br>
+<input type="text" id="email"><br>
+<p id="emailmessage" style="color:red;"></p>
 
-  <button type="submit">Submit</button>
+Password:<br>
+<input type="password" id="pass"><br>
+<p id="passmessage" style="color:red;"></p><br>
+
+<button type="submit">Submit</button>
+
 </form>
 
-<p id="message" style="color:red;"></p>
+<p id="message" style="color:green;"></p>
 
 <script>
+
 document.getElementById("myForm").addEventListener("submit", function(e){
 
-  let name = document.getElementById("name").value;
-  let email = document.getElementById("email").value;
-  let pass = document.getElementById("pass").value;
-  let message = document.getElementById("message");
+let name = document.getElementById("name").value;
+let email = document.getElementById("email").value;
+let pass = document.getElementById("pass").value;
 
-  if(name == "" || email == "" || pass == ""){
+let message = document.getElementById("message");
+let emailMessage = document.getElementById("emailmessage");
+let passMessage = document.getElementById("passmessage");
+
+emailMessage.innerHTML = "";
+passMessage.innerHTML = "";
+message.innerHTML = "";
+
+let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(name == "" || email == "" || pass == ""){
     e.preventDefault();
     message.innerHTML = "All fields are required!";
-  }
-  else if(pass.length < 6){
+}
+
+else if(!pattern.test(email)){
     e.preventDefault();
-    message.innerHTML = "Password must be at least 6 characters!";
-  }
-  else{
+    emailMessage.innerHTML = "Invalid Email format!";
+}
+
+else if(pass.length < 6){
+    e.preventDefault();
+    passMessage.innerHTML = "Password must be at least 6 characters!";
+}
+
+else{
     message.innerHTML = "Form submitted successfully!";
-  }
+}
 
 });
+
 </script>
 
 </body>
