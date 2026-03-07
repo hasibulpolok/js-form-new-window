@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simple Form Validation</title>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form id="myForm">
+  Name: <br>
+  <input type="text" id="name"><br><br>
+
+  Email: <br>
+  <input type="text" id="email"><br><br>
+
+  Password: <br>
+  <input type="password" id="pass"><br><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+<p id="message" style="color:red;"></p>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(e){
+
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("pass").value;
+  let message = document.getElementById("message");
+
+  if(name == "" || email == "" || pass == ""){
+    e.preventDefault();
+    message.innerHTML = "All fields are required!";
+  }
+  else if(pass.length < 6){
+    e.preventDefault();
+    message.innerHTML = "Password must be at least 6 characters!";
+  }
+  else{
+    message.innerHTML = "Form submitted successfully!";
+  }
+
+});
+</script>
+
+</body>
+</html>
