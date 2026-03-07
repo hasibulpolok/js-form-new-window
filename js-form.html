@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Admission</title>
+</head>
+
+<body>
+
+<form name="f" style="width:200px;margin:auto;border:1px solid gray;padding:10px">
+
+Name <br>
+<input type="text" name="name"><br><br>
+
+Email <br>
+<input type="text" name="email"><br><br>
+
+Address <br>
+<textarea name="address"></textarea><br><br>
+
+Course <br>
+<select name="course">
+<option>CSE</option>
+<option>BBA</option>
+<option>MBA</option>
+
+</select><br><br>
+
+Sex <br>
+Male <input type="radio" name="sex" value="Male">
+Female <input type="radio" name="sex" value="Female"><br><br>
+
+Subject <br>
+English <input type="checkbox" name="sub" value="English">
+Bengali <input type="checkbox" name="sub" value="Bengali">
+Math <input type="checkbox" name="sub" value="Math"><br><br>
+
+<input type="button" value="Submit" onclick="showData()">
+<input type="button" value="Reset">
+
+</form>
+
+<script>
+
+function showData(){
+
+let name=document.f.name.value;
+let email=document.f.email.value;
+let address=document.f.address.value;
+let course=document.f.course.value;
+
+let sex="";
+let subject="";
+
+for(i=0;i<document.f.sex.length;i++){
+if(document.f.sex[i].checked){
+sex=document.f.sex[i].value;
+}
+}
+
+for(j=0;j<document.f.sub.length;j++){
+if(document.f.sub[j].checked){
+subject+=document.f.sub[j].value+" ";
+}
+}
+
+let w=window.open("","","width=300,height=300");
+
+w.document.write("Name: "+name+"<br>");
+w.document.write("Email: "+email+"<br>");
+w.document.write("Address: "+address+"<br>");
+w.document.write("Course: "+course+"<br>");
+w.document.write("Sex: "+sex+"<br>");
+w.document.write("Subject: "+subject+"<br><br>");
+
+w.document.write("<button onclick='window.close()'>Close</button>");
+w.document.write("<button onclick='window.print()'>Print</button>");
+
+}
+
+</script>
+
+</body>
+</html>
