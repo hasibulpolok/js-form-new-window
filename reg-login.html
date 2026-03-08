@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login & Register</title>
+
+<style>
+body{
+font-family:Arial;
+text-align:center;
+margin-top:50px;
+}
+
+form{
+border:1px solid #ccc;
+padding:20px;
+width:300px;
+margin:auto;
+}
+
+input{
+width:90%;
+padding:8px;
+margin:5px 0;
+}
+
+button{
+padding:8px 15px;
+margin-top:10px;
+}
+
+#loginForm{
+display:none;
+}
+
+#message{
+margin-top:15px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Login & Registration</h2>
+
+<!-- Register -->
+<form id="registerForm">
+
+<h3>Register</h3>
+
+<input type="text" id="regName" placeholder="Name" required>
+
+<input type="email" id="regEmail" placeholder="Email" required>
+
+<input type="password" id="regPass" placeholder="Password" required>
+
+<button type="submit">Register</button>
+
+<p>
+Already have account?
+<a href="#" onclick="showLogin()">Login</a>
+</p>
+
+</form>
+
+
+<!-- Login -->
+<form id="loginForm">
+
+<h3>Login</h3>
+
+<input type="email" id="loginEmail" placeholder="Email" required>
+
+<input type="password" id="loginPass" placeholder="Password" required>
+
+<button type="submit">Login</button>
+
+<p>
+Don't have account?
+<a href="#" onclick="showRegister()">Register</a>
+</p>
+
+</form>
+
+<p id="message"></p>
+
+<script>
+
+// Switch Forms
+function showLogin(){
+document.getElementById("registerForm").style.display="none";
+document.getElementById("loginForm").style.display="block";
+}
+
+function showRegister(){
+document.getElementById("registerForm").style.display="block";
+document.getElementById("loginForm").style.display="none";
+}
+
+
+// REGISTER
+document.getElementById("registerForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let name = document.getElementById("regName").value.trim();
+let email = document.getElementById("regEmail").value.trim();
+let pass = document.getElementById("regPass").value.trim();
+
+let message=document.getElementById("message");
+
+if(pass.length < 6){
+message.innerHTML="❌ Password must be at least 6 characters";
+return;
+}
+
+let savedUser = JSON.parse(localStorage.getItem("user"));
+
+if(savedUser && savedUser.email === email){
+message.innerHTML="❌ Email already registered";
+return;
+}
+
+let user={
+name:name,
+email:email,
+pass:pass
+};
+
+localStorage.setItem("user",JSON.stringify(user));
+
+message.innerHTML="✅ Registration Successful";
+
+});
+
+
+// LOGIN
+document.getElementById("loginForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let email=document.getElementById("loginEmail").value.trim();
+let pass=document.getElementById("loginPass").value.trim();
+
+let savedUser=JSON.parse(localStorage.getItem("user"));
+
+let message=document.getElementById("message");
+
+if(savedUser && email===savedUser.email && pass===savedUser.pass){
+message.innerHTML="🎉 Login Successful";
+}
+else{
+message.innerHTML="❌ Invalid Email or Password";
+}
+
+});
+
+</script>
+
+</body>
+</html>

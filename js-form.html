@@ -6,7 +6,7 @@
 
 <body>
 
-<form name="f" style="width:200px;margin:auto;border:1px solid gray;padding:10px">
+<form name="f" style="width:220px;margin:auto;border:1px solid gray;padding:10px">
 
 Name <br>
 <input type="text" name="name"><br><br>
@@ -19,10 +19,10 @@ Address <br>
 
 Course <br>
 <select name="course">
+<option value="">Select Course</option>
 <option>CSE</option>
 <option>BBA</option>
 <option>MBA</option>
-
 </select><br><br>
 
 Sex <br>
@@ -35,7 +35,7 @@ Bengali <input type="checkbox" name="sub" value="Bengali">
 Math <input type="checkbox" name="sub" value="Math"><br><br>
 
 <input type="button" value="Submit" onclick="showData()">
-<input type="button" value="Reset">
+<input type="reset" value="Reset">
 
 </form>
 
@@ -43,28 +43,74 @@ Math <input type="checkbox" name="sub" value="Math"><br><br>
 
 function showData(){
 
-let name=document.f.name.value;
-let email=document.f.email.value;
-let address=document.f.address.value;
+let name=document.f.name.value.trim();
+let email=document.f.email.value.trim();
+let address=document.f.address.value.trim();
 let course=document.f.course.value;
 
 let sex="";
 let subject="";
 
-for(i=0;i<document.f.sex.length;i++){
+
+// Name validation
+if(name==""){
+alert("Name is required");
+return;
+}
+
+// Email validation
+let emailPattern=/^\S+@\S+\.\S+$/;
+
+if(!emailPattern.test(email)){
+alert("Enter valid email");
+return;
+}
+
+
+// Address validation
+if(address==""){
+alert("Address required");
+return;
+}
+
+
+// Course validation
+if(course==""){
+alert("Select a course");
+return;
+}
+
+
+// Sex
+for(let i=0;i<document.f.sex.length;i++){
 if(document.f.sex[i].checked){
 sex=document.f.sex[i].value;
 }
 }
 
-for(j=0;j<document.f.sub.length;j++){
+if(sex==""){
+alert("Select sex");
+return;
+}
+
+
+// Subjects
+for(let j=0;j<document.f.sub.length;j++){
 if(document.f.sub[j].checked){
 subject+=document.f.sub[j].value+" ";
 }
 }
 
-let w=window.open("","","width=300,height=300"); 
+if(subject==""){
+alert("Select at least one subject");
+return;
+}
 
+
+// Popup window
+let w=window.open("","","width=350,height=350");
+
+w.document.write("<h3>Student Information</h3>");
 w.document.write("Name: "+name+"<br>");
 w.document.write("Email: "+email+"<br>");
 w.document.write("Address: "+address+"<br>");
@@ -72,8 +118,8 @@ w.document.write("Course: "+course+"<br>");
 w.document.write("Sex: "+sex+"<br>");
 w.document.write("Subject: "+subject+"<br><br>");
 
+w.document.write("<button onclick='window.print()'>Print</button> ");
 w.document.write("<button onclick='window.close()'>Close</button>");
-w.document.write("<button onclick='window.print()'>Print</button>");
 
 }
 
